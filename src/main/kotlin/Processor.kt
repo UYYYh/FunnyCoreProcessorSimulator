@@ -48,7 +48,7 @@ class Processor(
 
     private fun executeLine(line: String) {
         println(line)
-        println(registers)
+        println(registers.toString() + "$pointer")
         val components = line.split(" ")
         val opcode: String = components[0]
         val function: KFunction<Unit> = stringToFunctionMap[opcode]!!
@@ -93,14 +93,14 @@ class Processor(
         d: Int,
         a: Int,
     ) {
-        registers.compute(d) { k, _ -> k shl a }
+        registers.compute(d) { _, v -> v!! shl registers[a]!! }
     }
 
     private fun shr(
         d: Int,
         a: Int,
     ) {
-        registers.compute(d) { k, _ -> k shr a }
+        registers.compute(d) { _, v -> v!! shr registers[a]!! }
     }
 
     private fun bor(
@@ -144,10 +144,5 @@ class Processor(
         }
     }
 
-    private fun adjust(i: Int): Int {
-        if (i > 0) {
-            return i + 1
-        }
-        return i - 1
-    }
+    private fun adjust(i: Int): Int = i - 1
 }
