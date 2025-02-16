@@ -3,12 +3,6 @@ package org.example
 import x.Processor
 
 fun main() {
-    val mutableMap: MutableMap<String, String> =
-        mutableMapOf(
-            "hello" to "world",
-            "123" to "456",
-        )
-
     val program: String =
         """
         li 5 1 
